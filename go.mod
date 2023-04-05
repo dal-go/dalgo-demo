@@ -8,6 +8,6 @@ require (
 )
 
 require (
-	github.com/dal-go/mocks4dalgo v0.0.2 // indirect
+	github.com/dal-go/mocks4dalgo v0.1.0 // indirect
 	github.com/strongo/random v0.0.1 // indirect
 )
