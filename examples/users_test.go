@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/dal-go/dalgo/dal"
-	"github.com/dal-go/dalgo/mocks4dal"
+	mocks4dal "github.com/dal-go/mocks4dalgo"
 	"github.com/golang/mock/gomock"
 	"reflect"
 	"testing"
