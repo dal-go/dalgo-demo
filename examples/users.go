@@ -2,10 +2,9 @@ package examples
 
 import (
 	"context"
-	"fmt"
 	"github.com/dal-go/dalgo/dal"
 	"github.com/dal-go/dalgo/orm"
-	"github.com/dal-go/dalgo/query"
+	"reflect"
 )
 
 type user struct {
@@ -32,33 +31,23 @@ type userData struct {
 }
 
 // SelectUserByEmail is a examples facade method
-func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string, into interface{}) error {
+func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (record dal.Record, err error) {
 	if db == nil {
 		panic("db is a required parameter")
 	}
-	if into == nil {
-		into = &userData{}
-	}
-	q := dal.Select{
-		From:  User.Collection(),
-		Where: User.Email.EqualToString(email),
-		Into: func() interface{} {
-			return into
-		},
-		Columns: query.Columns(User.FirstName.Name(), User.LastName.Name()),
-		Limit:   1,
-	}
-	fmt.Print(q)
-	reader, err := db.Select(ctx, q)
+	q := dal.
+		From(User.Collection().Name).
+		WhereField("Email", dal.Equal, User.Email.EqualToString(email)).
+		Limit(1).
+		SelectInto(func() dal.Record {
+			return dal.NewRecordWithIncompleteKey(User.Collection().Name, reflect.String, &userData{})
+		})
+	reader, err := db.QueryReader(ctx, q)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if reader == nil {
 		panic("db.Select() returned no error and nil reader")
 	}
-	_, err = reader.Next()
-	if err != nil {
-		return err
-	}
-	return nil
+	return reader.Next()
 }

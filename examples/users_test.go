@@ -47,13 +47,10 @@ func TestSelectUserByEmail(t *testing.T) {
 				email: "test@example.com",
 			},
 			selectResult: mocks4dal.NewSelectResult(
-				func(into func() interface{}) dal.Reader {
-					return mocks4dal.NewSingleRecordReader(
-						dal.NewKeyWithID("users", 1),
-						`{"email":"test@example.com"}`,
-						into,
-					)
-				}, nil,
+				mocks4dal.NewRecordsReader(0,
+					dal.NewRecordWithData(dal.NewKeyWithID("users", "user1"),
+						&userData{Email: "test@example.com"})),
+				nil,
 			),
 			want:    &userData{Email: "test@example.com"},
 			wantErr: nil,
@@ -62,19 +59,18 @@ func TestSelectUserByEmail(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			dbMock.EXPECT().
-				Select(gomock.Any(), gomock.Any()).
-				DoAndReturn(func(ctx context.Context, query dal.Select) (dal.Reader, error) {
-					return tt.selectResult.Reader(query.Into), tt.selectResult.Err
+				QueryReader(gomock.Any(), gomock.Any()).
+				DoAndReturn(func(ctx context.Context, query dal.Query) (dal.Reader, error) {
+					return tt.selectResult.Reader, tt.selectResult.Err
 				})
-			got := &userData{}
-			err := SelectUserByEmail(tt.args.ctx, tt.args.db, tt.args.email, got)
+			userRecord, err := SelectUserByEmail(tt.args.ctx, tt.args.db, tt.args.email)
 			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("SelectUserByEmail() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if err == nil {
-				if !reflect.DeepEqual(got, tt.want) {
-					t.Errorf("SelectUserByEmail() got = %v, want %v", got, tt.want)
+				if got := userRecord.Data().(*userData); !reflect.DeepEqual(*got, *tt.want) {
+					t.Errorf("SelectUserByEmail() returned %T=%+v, want %T=%+v", got, got, tt.want, tt.want)
 				}
 			}
 		})
