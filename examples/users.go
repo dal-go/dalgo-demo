@@ -8,16 +8,16 @@ import (
 )
 
 type user struct {
-	Email     orm.StringField
-	FirstName orm.StringField
-	LastName  orm.StringField
+	Email     orm.FieldDefinition[string]
+	FirstName orm.FieldDefinition[string]
+	LastName  orm.FieldDefinition[string]
 }
 
 // User defines user collection
 var User = user{
-	FirstName: orm.NewStringField("fist_name"),
-	LastName:  orm.NewStringField("last_name"),
-	Email:     orm.NewStringField("email"),
+	FirstName: orm.NewField[string]("fist_name"),
+	LastName:  orm.NewField[string]("last_name"),
+	Email:     orm.NewField[string]("email"),
 }
 
 func (v user) Collection() *dal.CollectionRef {
@@ -37,7 +37,7 @@ func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (r
 	}
 	q := dal.
 		From(User.Collection().Name).
-		WhereField("Email", dal.Equal, User.Email.EqualToString(email)).
+		WhereField("Email", dal.Equal, User.Email.EqualTo(email)).
 		Limit(1).
 		SelectInto(func() dal.Record {
 			return dal.NewRecordWithIncompleteKey(User.Collection().Name, reflect.String, &userData{})
