@@ -48,8 +48,11 @@ func TestSelectUserByEmail(t *testing.T) {
 			},
 			selectResult: mocks4dal.NewSelectResult(
 				mocks4dal.NewRecordsReader(0,
-					dal.NewRecordWithData(dal.NewKeyWithID("users", "user1"),
-						&userData{Email: "test@example.com"})),
+					dal.NewRecordWithData(
+						dal.NewKeyWithID("users", "user1"),
+						&userData{Email: "test@example.com"},
+					).SetError(nil),
+				),
 				nil,
 			),
 			want:    &userData{Email: "test@example.com"},

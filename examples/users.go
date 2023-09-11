@@ -26,6 +26,12 @@ func (v user) Collection() *dal.CollectionRef {
 	}
 }
 
+func (v user) RecordWithIncompleteKey() func() dal.Record {
+	return func() dal.Record {
+		return dal.NewRecordWithIncompleteKey(v.Collection().Name, reflect.String, &userData{})
+	}
+}
+
 type userData struct {
 	Email string `json:"email"`
 }
@@ -37,11 +43,9 @@ func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (r
 	}
 	q := dal.
 		From(User.Collection().Name).
-		WhereField("Email", dal.Equal, User.Email.EqualTo(email)).
+		Where(User.Email.EqualTo(email)).
 		Limit(1).
-		SelectInto(func() dal.Record {
-			return dal.NewRecordWithIncompleteKey(User.Collection().Name, reflect.String, &userData{})
-		})
+		SelectInto(User.RecordWithIncompleteKey())
 	reader, err := db.QueryReader(ctx, q)
 	if err != nil {
 		return nil, err
