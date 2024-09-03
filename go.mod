@@ -5,8 +5,8 @@ go 1.23
 toolchain go1.23.0
 
 require (
-	github.com/dal-go/dalgo v0.12.2
-	github.com/dal-go/mocks4dalgo v0.1.20
+	github.com/dal-go/dalgo v0.13.0
+	github.com/dal-go/mocks4dalgo v0.1.22
 	github.com/golang/mock v1.6.0
 )
 
