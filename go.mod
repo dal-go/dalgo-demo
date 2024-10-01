@@ -2,7 +2,7 @@ module github.com/dal-go/dalgo-demo
 
 go 1.23
 
-toolchain go1.23.1
+toolchain go1.23.2
 
 require (
 	github.com/dal-go/dalgo v0.14.0
