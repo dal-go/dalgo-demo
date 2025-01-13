@@ -62,6 +62,8 @@ github.com/dal-go/mocks4dalgo v0.1.25 h1:P4c/IQxzzb51awF2DWKAS6aFbwPfkqOpZ7CQnfr
 github.com/dal-go/mocks4dalgo v0.1.25/go.mod h1:CYYmGFDCXIrDSaihbds2QenuZEiCetusC9RzZ1s1g9I=
 github.com/dal-go/mocks4dalgo v0.1.27 h1:8ASqFtDsDOhDp0eN3xaa0oYsA0jZ/qIYBeaZCR3AKns=
 github.com/dal-go/mocks4dalgo v0.1.27/go.mod h1:62mQqbFZKtN9/8arVhGeCoy4pvlFAPot6SP+C4WIvao=
+github.com/dal-go/mocks4dalgo v0.1.28 h1:7Jlh9gRSi/f+nNiFeS5zPoKSXKFybFGdigzZzZaxwac=
+github.com/dal-go/mocks4dalgo v0.1.28/go.mod h1:Woit/TRw2dvbWNlUBUV50geQ1DqZimfFoJLRAeAX39A=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/golang/mock v1.6.0 h1:ErTB+efbowRARo13NNdxyJji2egdxLGQhRaY+DUumQc=
 github.com/golang/mock v1.6.0/go.mod h1:p6yTPP+5HYm5mzsMV8JkE6ZKdX+/wYM6Hr+LicevLPs=
