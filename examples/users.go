@@ -21,14 +21,13 @@ var User = user{
 }
 
 func (v user) Collection() *dal.CollectionRef {
-	return &dal.CollectionRef{
-		Name: "users",
-	}
+	collection := dal.NewRootCollectionRef("users", "")
+	return &collection
 }
 
 func (v user) RecordWithIncompleteKey() func() dal.Record {
 	return func() dal.Record {
-		return dal.NewRecordWithIncompleteKey(v.Collection().Name, reflect.String, &userData{})
+		return dal.NewRecordWithIncompleteKey(v.Collection().Name(), reflect.String, &userData{})
 	}
 }
 
@@ -42,7 +41,7 @@ func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (r
 		panic("db is a required parameter")
 	}
 	q := dal.
-		From(User.Collection().Name).
+		From(*User.Collection()).
 		Where(User.Email.EqualTo(email)).
 		Limit(1).
 		SelectInto(User.RecordWithIncompleteKey())
