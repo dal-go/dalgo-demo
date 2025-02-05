@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"github.com/dal-go/dalgo/dal"
-	"github.com/dal-go/mocks4dalgo/mocks4dal"
-	"github.com/golang/mock/gomock"
+	"github.com/dal-go/mocks4dalgo/mock_dal"
+	"go.uber.org/mock/gomock"
 	"reflect"
 	"testing"
 )
@@ -17,11 +17,11 @@ func TestSelectUserByEmail(t *testing.T) {
 		email string
 	}
 	mockCtrl := gomock.NewController(t)
-	dbMock := mocks4dal.NewMockDatabase(mockCtrl)
+	dbMock := mock_dal.NewMockDB(mockCtrl)
 	tests := []struct {
 		name         string
 		args         args
-		selectResult mocks4dal.SelectResult
+		selectResult mock_dal.SelectResult
 		want         *userData
 		wantErr      error
 	}{
@@ -32,7 +32,7 @@ func TestSelectUserByEmail(t *testing.T) {
 				ctx:   context.Background(),
 				email: "unknown@example.com",
 			},
-			selectResult: mocks4dal.NewSelectResult(
+			selectResult: mock_dal.NewSelectResult(
 				nil,
 				dal.ErrRecordNotFound,
 			),
@@ -46,8 +46,8 @@ func TestSelectUserByEmail(t *testing.T) {
 				ctx:   context.Background(),
 				email: "test@example.com",
 			},
-			selectResult: mocks4dal.NewSelectResult(
-				mocks4dal.NewRecordsReader(0,
+			selectResult: mock_dal.NewSelectResult(
+				mock_dal.NewRecordsReader(0,
 					dal.NewRecordWithData(
 						dal.NewKeyWithID("users", "user1"),
 						&userData{Email: "test@example.com"},
