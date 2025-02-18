@@ -2,11 +2,11 @@ module github.com/dal-go/dalgo-demo
 
 go 1.23
 
-toolchain go1.23.6
+toolchain go1.24.0
 
 require (
-	github.com/dal-go/dalgo v0.16.1
-	github.com/dal-go/mocks4dalgo v0.2.0
+	github.com/dal-go/dalgo v0.17.0
+	github.com/dal-go/mocks4dalgo v0.2.1
 	go.uber.org/mock v0.5.0
 )
 
