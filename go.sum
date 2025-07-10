@@ -48,6 +48,8 @@ github.com/dal-go/mocks4dalgo v0.3.2 h1:ze46qjh/QqsWErc3XYo/TrF43mnT9a24ZVeY67gm
 github.com/dal-go/mocks4dalgo v0.3.2/go.mod h1:/X3OWVD1TlEJXtekBU/3NiQUCQq+poQ6QIph6X8CIFM=
 github.com/dal-go/mocks4dalgo v0.3.3 h1:w57EP8Ui4ZfSEWNa1fppvZr9eS2cyt6UM4HloecB6qo=
 github.com/dal-go/mocks4dalgo v0.3.3/go.mod h1:VDw5bkQzBBCGvdmOoiWz6KRDVw4lsNSH4Ziq5bL9moU=
+github.com/dal-go/mocks4dalgo v0.3.4 h1:IaxOvMCa1qmUGNiXN0CSPfXYBdC3yidUctOWGuqS8ok=
+github.com/dal-go/mocks4dalgo v0.3.4/go.mod h1:6tTsJt4SnSlcHtIXPksmwqF+f5A8jWvC8H2QfG7DgCA=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
