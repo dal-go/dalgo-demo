@@ -2,9 +2,10 @@ package examples
 
 import (
 	"context"
+	"reflect"
+
 	"github.com/dal-go/dalgo/dal"
 	"github.com/dal-go/dalgo/orm"
-	"reflect"
 )
 
 type user struct {
@@ -41,11 +42,11 @@ func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (r
 		panic("db is a required parameter")
 	}
 	q := dal.
-		From(*User.Collection()).
+		From(*User.Collection()).NewQuery().
 		Where(User.Email.EqualTo(email)).
 		Limit(1).
-		SelectInto(User.RecordWithIncompleteKey())
-	reader, err := db.QueryReader(ctx, q)
+		SelectIntoRecord(User.RecordWithIncompleteKey())
+	reader, err := db.GetRecordsReader(ctx, q)
 	if err != nil {
 		return nil, err
 	}

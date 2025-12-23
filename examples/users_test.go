@@ -3,11 +3,12 @@ package examples
 import (
 	"context"
 	"errors"
-	"github.com/dal-go/dalgo/dal"
-	"github.com/dal-go/mocks4dalgo/mock_dal"
-	"go.uber.org/mock/gomock"
 	"reflect"
 	"testing"
+
+	"github.com/dal-go/dalgo/dal"
+	"github.com/dal-go/dalgo/mocks/mock_dal"
+	"go.uber.org/mock/gomock"
 )
 
 func TestSelectUserByEmail(t *testing.T) {
@@ -62,9 +63,12 @@ func TestSelectUserByEmail(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			dbMock.EXPECT().
-				QueryReader(gomock.Any(), gomock.Any()).
-				DoAndReturn(func(ctx context.Context, query dal.Query) (dal.Reader, error) {
-					return tt.selectResult.Reader, tt.selectResult.Err
+				GetRecordsReader(gomock.Any(), gomock.Any()).
+				DoAndReturn(func(ctx context.Context, query dal.Query) (dal.RecordsReader, error) {
+					if tt.selectResult.Reader == nil {
+						return nil, tt.selectResult.Err
+					}
+					return tt.selectResult.Reader.(dal.RecordsReader), tt.selectResult.Err
 				})
 			userRecord, err := SelectUserByEmail(tt.args.ctx, tt.args.db, tt.args.email)
 			if !errors.Is(err, tt.wantErr) {
