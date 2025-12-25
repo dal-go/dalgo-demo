@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.25.5
 
 require (
-	github.com/dal-go/dalgo v0.37.0
+	github.com/dal-go/dalgo v0.40.0
 	go.uber.org/mock v0.6.0
 )
 

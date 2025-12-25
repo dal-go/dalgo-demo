@@ -46,7 +46,7 @@ func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (r
 		Where(User.Email.EqualTo(email)).
 		Limit(1).
 		SelectIntoRecord(User.RecordWithIncompleteKey())
-	reader, err := db.GetRecordsReader(ctx, q)
+	reader, err := db.ExecuteQueryToRecordsReader(ctx, q)
 	if err != nil {
 		return nil, err
 	}
