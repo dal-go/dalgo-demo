@@ -63,7 +63,7 @@ func TestSelectUserByEmail(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			dbMock.EXPECT().
-				GetRecordsReader(gomock.Any(), gomock.Any()).
+				ExecuteQueryToRecordsReader(gomock.Any(), gomock.Any()).
 				DoAndReturn(func(ctx context.Context, query dal.Query) (dal.RecordsReader, error) {
 					if tt.selectResult.Reader == nil {
 						return nil, tt.selectResult.Err
