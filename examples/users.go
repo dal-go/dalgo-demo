@@ -6,6 +6,7 @@ import (
 
 	"github.com/dal-go/dalgo/dal"
 	"github.com/dal-go/dalgo/orm"
+	"github.com/dal-go/record"
 )
 
 type user struct {
@@ -26,9 +27,9 @@ func (v user) Collection() *dal.CollectionRef {
 	return &collection
 }
 
-func (v user) RecordWithIncompleteKey() func() dal.Record {
-	return func() dal.Record {
-		return dal.NewRecordWithIncompleteKey(v.Collection().Name(), reflect.String, &userData{})
+func (v user) RecordWithIncompleteKey() func() record.Record {
+	return func() record.Record {
+		return record.NewRecordWithIncompleteKey(v.Collection().Name(), reflect.String, &userData{})
 	}
 }
 
@@ -37,7 +38,7 @@ type userData struct {
 }
 
 // SelectUserByEmail is a examples facade method
-func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (record dal.Record, err error) {
+func SelectUserByEmail(ctx context.Context, db dal.ReadSession, email string) (rec record.Record, err error) {
 	if db == nil {
 		panic("db is a required parameter")
 	}

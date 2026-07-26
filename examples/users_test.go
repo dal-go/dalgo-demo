@@ -8,6 +8,7 @@ import (
 
 	"github.com/dal-go/dalgo/dal"
 	"github.com/dal-go/dalgo/mocks/mock_dal"
+	"github.com/dal-go/record"
 	"go.uber.org/mock/gomock"
 )
 
@@ -18,7 +19,7 @@ func TestSelectUserByEmail(t *testing.T) {
 		email string
 	}
 	mockCtrl := gomock.NewController(t)
-	dbMock := mock_dal.NewMockDB(mockCtrl)
+	dbMock := mock_dal.NewMockReadSession(mockCtrl)
 	tests := []struct {
 		name         string
 		args         args
@@ -35,10 +36,10 @@ func TestSelectUserByEmail(t *testing.T) {
 			},
 			selectResult: mock_dal.NewSelectResult(
 				nil,
-				dal.ErrRecordNotFound,
+				record.ErrRecordNotFound,
 			),
 			want:    nil,
-			wantErr: dal.ErrRecordNotFound,
+			wantErr: record.ErrRecordNotFound,
 		},
 		{
 			name: "should succeed",
@@ -49,8 +50,8 @@ func TestSelectUserByEmail(t *testing.T) {
 			},
 			selectResult: mock_dal.NewSelectResult(
 				mock_dal.NewRecordsReader(0,
-					dal.NewRecordWithData(
-						dal.NewKeyWithID("users", "user1"),
+					record.NewRecordWithData(
+						record.NewKeyWithID("users", "user1"),
 						&userData{Email: "test@example.com"},
 					).SetError(nil),
 				),

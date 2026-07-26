@@ -5,14 +5,15 @@ go 1.24.0
 toolchain go1.26.5
 
 require (
-	github.com/dal-go/dalgo v0.63.0
+	github.com/dal-go/dalgo v0.64.3
+	github.com/dal-go/record v0.1.1
 	go.uber.org/mock v0.6.0
 )
 
 //replace github.com/dal-go/mocks4dalgo => ../mocks4dalgo
 
 require (
-	github.com/RoaringBitmap/roaring/v2 v2.21.0 // indirect
+	github.com/RoaringBitmap/roaring/v2 v2.24.0 // indirect
 	github.com/bits-and-blooms/bitset v1.24.4 // indirect
 	github.com/mschoch/smat v0.2.0 // indirect
 	github.com/strongo/random v0.0.1 // indirect
