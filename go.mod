@@ -6,7 +6,7 @@ toolchain go1.26.5
 
 require (
 	github.com/dal-go/dalgo v0.64.3
-	github.com/dal-go/record v0.1.1
+	github.com/dal-go/record v0.1.2
 	go.uber.org/mock v0.6.0
 )
 
