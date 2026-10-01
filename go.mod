@@ -5,7 +5,7 @@ go 1.26.0
 toolchain go1.27.1
 
 require (
-	github.com/dal-go/dalgo v0.88.0
+	github.com/dal-go/dalgo v0.88.2
 	github.com/dal-go/record v0.1.4
 	go.uber.org/mock v0.6.0
 )
@@ -16,6 +16,6 @@ require (
 	github.com/RoaringBitmap/roaring/v2 v2.29.0 // indirect
 	github.com/bits-and-blooms/bitset v1.24.4 // indirect
 	github.com/mschoch/smat v0.2.0 // indirect
-	github.com/strongo/random v0.0.2 // indirect
+	github.com/strongo/random v0.0.3 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 )
