@@ -5,7 +5,7 @@ go 1.26.0
 toolchain go1.27.2
 
 require (
-	github.com/dal-go/dalgo v0.93.3
+	github.com/dal-go/dalgo v0.93.4
 	github.com/dal-go/record v0.1.4
 	go.uber.org/mock v0.6.0
 )
