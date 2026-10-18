@@ -84,3 +84,38 @@ func TestSelectUserByEmail(t *testing.T) {
 		})
 	}
 }
+
+func TestUser_RecordWithIncompleteKey(t *testing.T) {
+	recFn := User.RecordWithIncompleteKey()
+	rec := recFn()
+	if rec == nil {
+		t.Fatal("expected non-nil record")
+	}
+	if rec.Key() == nil {
+		t.Fatal("expected non-nil key")
+	}
+}
+
+func TestSelectUserByEmail_NilDB(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("expected panic on nil db")
+		}
+	}()
+	_, _ = SelectUserByEmail(context.Background(), nil, "test@example.com")
+}
+
+func TestSelectUserByEmail_NilReader(t *testing.T) {
+	mockCtrl := gomock.NewController(t)
+	dbMock := mock_dal.NewMockReadSession(mockCtrl)
+	dbMock.EXPECT().
+		ExecuteQueryToRecordsReader(gomock.Any(), gomock.Any()).
+		Return(nil, nil)
+
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("expected panic on nil reader with no error")
+		}
+	}()
+	_, _ = SelectUserByEmail(context.Background(), dbMock, "test@example.com")
+}
